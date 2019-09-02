@@ -99,6 +99,7 @@
     <None Include="ping_icon.ico" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="config_snap.png" />
     <Content Include="ip_list.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>

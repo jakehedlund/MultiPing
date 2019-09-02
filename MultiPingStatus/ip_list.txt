@@ -1,13 +1,10 @@
 # this is a comment
 # separate with comma or colon.
-#CPU1,192.168.0.30
-#Remote1,192.168.0.22
-#Test2,192.168.0.21
-#Extra3,192.168.0.20
-#Cam1,192.168.0.250
-#Cam2,192.168.0.251
-#Cam3,192.168.0.252
+# CPU1:192.168.0.30
+# Remote2:192.168.0.22
+# Extra3,192.168.0.20
+# Cam1,192.168.0.250
 
-Spaces are supported,192.168.0.222
+Spaces are supported, 192.168.0.222
 Localhost:127.0.0.1
 Google, 216.58.194.174
