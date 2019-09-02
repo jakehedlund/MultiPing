@@ -34,9 +34,11 @@
             this.btnReload = new System.Windows.Forms.Button();
             this.btnSetFile = new System.Windows.Forms.Button();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
+            this.nudInterval = new System.Windows.Forms.NumericUpDown();
             this.pnlPingControls = new System.Windows.Forms.FlowLayoutPanel();
-            this.chkTop = new System.Windows.Forms.CheckBox();
             this.spcTest = new MultiPingStatus.SinglePingControl();
+            this.chkTop = new System.Windows.Forms.CheckBox();
+            ((System.ComponentModel.ISupportInitialize)(this.nudInterval)).BeginInit();
             this.pnlPingControls.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -71,6 +73,30 @@
             this.btnSetFile.UseVisualStyleBackColor = true;
             this.btnSetFile.Click += new System.EventHandler(this.btnSetFile_Click);
             // 
+            // nudInterval
+            // 
+            this.nudInterval.Location = new System.Drawing.Point(7, 36);
+            this.nudInterval.Maximum = new decimal(new int[] {
+            10000000,
+            0,
+            0,
+            0});
+            this.nudInterval.Minimum = new decimal(new int[] {
+            50,
+            0,
+            0,
+            0});
+            this.nudInterval.Name = "nudInterval";
+            this.nudInterval.Size = new System.Drawing.Size(71, 20);
+            this.nudInterval.TabIndex = 7;
+            this.toolTip1.SetToolTip(this.nudInterval, "Interval (ms)");
+            this.nudInterval.Value = new decimal(new int[] {
+            1000,
+            0,
+            0,
+            0});
+            this.nudInterval.ValueChanged += new System.EventHandler(this.numericUpDown1_ValueChanged);
+            // 
             // pnlPingControls
             // 
             this.pnlPingControls.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
@@ -78,10 +104,22 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.pnlPingControls.AutoScroll = true;
             this.pnlPingControls.Controls.Add(this.spcTest);
-            this.pnlPingControls.Location = new System.Drawing.Point(4, 37);
+            this.pnlPingControls.Location = new System.Drawing.Point(4, 62);
             this.pnlPingControls.Name = "pnlPingControls";
-            this.pnlPingControls.Size = new System.Drawing.Size(324, 223);
+            this.pnlPingControls.Size = new System.Drawing.Size(324, 259);
             this.pnlPingControls.TabIndex = 5;
+            // 
+            // spcTest
+            // 
+            this.spcTest.Interval = 1000;
+            this.spcTest.Ip = "127.  0.  0.  1";
+            this.spcTest.Location = new System.Drawing.Point(3, 3);
+            this.spcTest.Name = "spcTest";
+            this.spcTest.OctetOne = ((uint)(0u));
+            this.spcTest.PingTargetName = "spcTest";
+            this.spcTest.Size = new System.Drawing.Size(302, 54);
+            this.spcTest.TabIndex = 2;
+            this.spcTest.KeyDown += new System.Windows.Forms.KeyEventHandler(this.spcTest_KeyDown);
             // 
             // chkTop
             // 
@@ -94,22 +132,12 @@
             this.chkTop.UseVisualStyleBackColor = true;
             this.chkTop.CheckedChanged += new System.EventHandler(this.chkTop_CheckedChanged);
             // 
-            // spcTest
-            // 
-            this.spcTest.Interval = 1000;
-            this.spcTest.Ip = "127.  0.  0.  1";
-            this.spcTest.Location = new System.Drawing.Point(3, 3);
-            this.spcTest.Name = "spcTest";
-            this.spcTest.PingTargetName = "spcTest";
-            this.spcTest.Size = new System.Drawing.Size(302, 54);
-            this.spcTest.TabIndex = 2;
-            this.spcTest.KeyDown += new System.Windows.Forms.KeyEventHandler(this.spcTest_KeyDown);
-            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(330, 262);
+            this.ClientSize = new System.Drawing.Size(330, 323);
+            this.Controls.Add(this.nudInterval);
             this.Controls.Add(this.chkTop);
             this.Controls.Add(this.pnlPingControls);
             this.Controls.Add(this.btnSetFile);
@@ -120,6 +148,7 @@
             this.Text = "Ping Status";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form1_FormClosing);
             this.Load += new System.EventHandler(this.Form1_Load);
+            ((System.ComponentModel.ISupportInitialize)(this.nudInterval)).EndInit();
             this.pnlPingControls.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -134,6 +163,7 @@
         private System.Windows.Forms.ToolTip toolTip1;
         private System.Windows.Forms.FlowLayoutPanel pnlPingControls;
         private System.Windows.Forms.CheckBox chkTop;
+        private System.Windows.Forms.NumericUpDown nudInterval;
     }
 }
 

@@ -38,6 +38,8 @@ namespace MultiPingStatus
         bool pingInProgress = false;
         bool enabled = true;
 
+        public uint OctetOne { get; set; }
+
         public SinglePingControl()
         {
             InitializeComponent();
@@ -162,6 +164,7 @@ namespace MultiPingStatus
             {
                 Console.WriteLine("Error setting IP: " + ex.Message);
             }
+            
         }
 
         public void Start()
@@ -184,10 +187,11 @@ namespace MultiPingStatus
 
         private void txtIp_KeyDown(object sender, KeyEventArgs e)
         {
+            int pos = txtIp.SelectionStart;
+            int max = (txtIp.MaskedTextProvider.Length - txtIp.MaskedTextProvider.EditPositionCount);
+
             if (e.KeyCode == Keys.OemPeriod || e.KeyCode == Keys.Decimal)
             {
-                int pos = txtIp.SelectionStart;
-                int max = (txtIp.MaskedTextProvider.Length - txtIp.MaskedTextProvider.EditPositionCount);
                 int nextField = 0;
 
                 for (int i = 0; i < txtIp.MaskedTextProvider.Length; i++)
@@ -203,6 +207,8 @@ namespace MultiPingStatus
 
                 txtIp.SelectionStart = nextField;
             }
+
+            
         }
 
         private void txtIp_Leave(object sender, EventArgs e)
@@ -217,6 +223,27 @@ namespace MultiPingStatus
         private void txtIp_KeyPress(object sender, KeyPressEventArgs e)
         {
             //txtIp_KeyDown(sender, e);
+            Console.WriteLine("Pressed: " + e.KeyChar);
+            int pos = txtIp.SelectionStart;
+            string orig = txtIp.Text;
+
+            if (pos < txtIp.Mask.Length && pos < orig.Length && txtIp.Text[pos] == ' ')
+            {
+                MaskedTextResultHint hint = MaskedTextResultHint.DigitExpected;
+                if (txtIp.MaskedTextProvider.VerifyChar(e.KeyChar, pos, out hint))
+                {
+                    if (txtIp.MaskedTextProvider.Replace(e.KeyChar, pos))
+                    {
+                        Console.WriteLine(txtIp.MaskedTextProvider.ToDisplayString());
+                        txtIp.MaskedTextProvider.InsertAt(e.KeyChar, pos);
+                    }
+                    else
+                        Console.WriteLine("Error replacing.");
+                }
+                else
+                    Console.WriteLine("Hint: " + hint.ToString()); 
+            }
+
         }
 
         private void txtIp_Enter(object sender, EventArgs e)
@@ -233,7 +260,7 @@ namespace MultiPingStatus
             string[] split = ip.Split('.');
             string newIp = "";
 
-            newIp = string.Join(".", split.Select(s => s.PadLeft(3))) ;
+            newIp = string.Join(".", split.Select(s => s.PadLeft(3, ' '))) ;
 
             return newIp;
         }

@@ -1,0 +1,13 @@
+# this is a comment
+# separate with comma or colon.
+#CPU1,192.168.0.30
+#Remote1,192.168.0.22
+#Test2,192.168.0.21
+#Extra3,192.168.0.20
+#Cam1,192.168.0.250
+#Cam2,192.168.0.251
+#Cam3,192.168.0.252
+
+Spaces are supported,192.168.0.222
+Localhost:127.0.0.1
+Server is 4,192.168.0.21 

@@ -21,15 +21,17 @@ namespace MultiPingStatus
 
         string FileName { get; set; }
 
+        int _interval = 1000;
+
         public Form1()
         {
             InitializeComponent();
 
-            pingList.Add(new SinglePingControl("ROV", "192.168.0.30"));
-            pingList.Add(new SinglePingControl("PBX", "192.168.0.20"));
-            pingList.Add(new SinglePingControl("Cam1", "192.168.0.250"));
-            pingList.Add(new SinglePingControl("Cam2", "192.168.0.251"));
-            pingList.Add(new SinglePingControl("Cam3", "192.168.0.252"));
+            //pingList.Add(new SinglePingControl("ROV", "192.168.0.30"));
+            //pingList.Add(new SinglePingControl("PBX", "192.168.0.20"));
+            //pingList.Add(new SinglePingControl("Cam1", "192.168.0.250"));
+            //pingList.Add(new SinglePingControl("Cam2", "192.168.0.251"));
+            //pingList.Add(new SinglePingControl("Cam3", "192.168.0.252"));
 
             pnlPingControls.Controls.Clear();
             pnlPingControls.Controls.AddRange(pingList.ToArray());
@@ -87,6 +89,7 @@ namespace MultiPingStatus
             catch (Exception ex)
             {
                 Console.WriteLine("Error opening file: " + ex.Message);
+                throw ex;
             }
 
             string line = "";
@@ -130,6 +133,7 @@ namespace MultiPingStatus
                 catch (Exception ex)
                 {
                     Console.WriteLine("Error parsing line: " + ex.Message);
+                    throw ex;
                 }
             }
 
@@ -161,17 +165,40 @@ namespace MultiPingStatus
         private void btnSetFile_Click(object sender, EventArgs e)
         {
             OpenFileDialog fd = new OpenFileDialog();
-            fd.ShowDialog();
+            var res = fd.ShowDialog();
 
-            string fname = fd.FileName;
+            if (res == DialogResult.OK)
+            {
+                string fname = fd.FileName;
 
-            FileName = fname;
-            ReadFile(fname);
+                FileName = fname;
+                try
+                {
+                    ReadFile(fname);
+                    this.Name = "Ping status: " + fd.SafeFileName;
+                }catch(Exception ex)
+                {
+                    MessageBox.Show("Error parsing file: " + ex.Message, "Error");
+                }
+            }
         }
 
         private void btnReload_Click(object sender, EventArgs e)
         {
-            ReadFile(FileName);
+            try
+            {
+
+                ReadFile(FileName);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error parsing file: " + ex.Message, "Error");
+            }
+
+            // Adjust window size to fit. 
+            int singleHeight = pnlPingControls.Controls[0].Height; 
+            var sc = Screen.FromControl(this);
+            this.Height = Math.Min(sc.WorkingArea.Height, (3+singleHeight) * (this.pnlPingControls.Controls.Count) + 120);
         }
 
         private void Form1_FormClosing(object sender, FormClosingEventArgs e)
@@ -182,12 +209,30 @@ namespace MultiPingStatus
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            var path = Path.Combine(Directory.GetCurrentDirectory(), "ip_list.txt");
-            if (File.Exists(path))
+            try
             {
-                this.FileName = path;
-                btnReload_Click(null, null);
+
+                var path = Path.Combine(Directory.GetCurrentDirectory(), "ip_list.txt");
+                if (File.Exists(path))
+                {
+                    this.FileName = path;
+                    btnReload_Click(null, null);
+                }
             }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Error opening file: " + ex.Message); 
+            }
+
+        }
+
+        private void numericUpDown1_ValueChanged(object sender, EventArgs e)
+        {
+            foreach( var c in pingList)
+            {
+                c.Interval = (int)nudInterval.Value;
+            }
+            this._interval = (int)nudInterval.Value;
         }
     }
 }
