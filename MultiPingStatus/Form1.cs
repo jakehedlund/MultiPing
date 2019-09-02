@@ -123,8 +123,8 @@ namespace MultiPingStatus
 
                     if (tokens.Count() == 2)
                     {
-                        name = tokens[0];
-                        ip = tokens[1];
+                        name = tokens[0].Trim();
+                        ip = tokens[1].Trim();
 
                         templist.Add(new SinglePingControl(name, ip));
                     }

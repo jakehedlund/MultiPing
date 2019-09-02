@@ -8,3 +8,6 @@ Multi ping is a small little program that simply shows the current ping status (
 * Load IP address lists via a file. 
 * Always-on-top option. 
 * Enable checkbox for each IP. 
+
+## TODO
+* Better IP address control. Any suggestions? 
