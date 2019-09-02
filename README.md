@@ -5,6 +5,8 @@ Multi ping is a small little program that simply shows the current ping status (
 
 ![multi-ping_screenshot](/MultiPingStatus/mp_snap.png)
 
+![config_screenshot](/MultiPingStatus/config_snap.png)
+
 ## Features
 * Status of each IP address indicated visually. 
 * Load IP address lists via a file. 
