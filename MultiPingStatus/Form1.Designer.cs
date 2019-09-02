@@ -68,7 +68,7 @@
             this.btnSetFile.Name = "btnSetFile";
             this.btnSetFile.Size = new System.Drawing.Size(75, 23);
             this.btnSetFile.TabIndex = 4;
-            this.btnSetFile.Text = "Open File";
+            this.btnSetFile.Text = "Open File...";
             this.toolTip1.SetToolTip(this.btnSetFile, "Open a list of IPs (format name,ip one per line)");
             this.btnSetFile.UseVisualStyleBackColor = true;
             this.btnSetFile.Click += new System.EventHandler(this.btnSetFile_Click);
